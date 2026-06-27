@@ -1,7 +1,8 @@
 package com.example.agregador_vagas_estagio_backend.service;
 
-import java.util.ArrayList;
-import java.util.List;
+features-allan
+import java.util.ArrayList; //  importado para criar uma lista nova
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class AgregadorService {
     @Autowired
     private GlassdoorService glassdoorService;
 
-    @Autowired
+    @AutoWired
     private InfojobsService infojobsService;
 
     @Autowired
@@ -22,6 +23,9 @@ public class AgregadorService {
 
     @Autowired
     private GupyService gupyService;
+    
+    @AutoWired
+    private EstagiarBrService estagiarBrService; 
 
     public List<VagaDTO> agregaVagas(String termo, String local){
         List<VagaDTO> vagas = new ArrayList<>();
@@ -29,6 +33,8 @@ public class AgregadorService {
         vagas.addAll(infojobsService.retornaVagas(termo, local));
         vagas.addAll(academiaUniversitarioService.retornaVagas(termo, local));
         vagas.addAll(gupyService.retornaVagas(termo, local));
+        vagas.addAll(estagiarBrService.retornaVagas(termo, local));
+      
         return vagas;
     }
     
