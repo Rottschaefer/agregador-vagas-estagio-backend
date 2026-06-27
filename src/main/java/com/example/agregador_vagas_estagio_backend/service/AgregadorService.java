@@ -17,10 +17,18 @@ public class AgregadorService {
     @Autowired
     private InfojobsService infojobsService;
 
+    @Autowired
+    private AcademiaUniversitarioService academiaUniversitarioService;
+
+    @Autowired
+    private GupyService gupyService;
+
     public List<VagaDTO> agregaVagas(String termo, String local){
         List<VagaDTO> vagas = new ArrayList<>();
         vagas.addAll(glassdoorService.retornaVagas(termo, local));
         vagas.addAll(infojobsService.retornaVagas(termo, local));
+        vagas.addAll(academiaUniversitarioService.retornaVagas(termo, local));
+        vagas.addAll(gupyService.retornaVagas(termo, local));
         return vagas;
     }
     
