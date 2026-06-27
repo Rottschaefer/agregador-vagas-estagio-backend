@@ -24,7 +24,11 @@ public class GlassdoorService {
 
             // O String.format substitui o primeiro %s por 'termo' e o %d pelo tamanho do termo
             String url = String.format(urlBase, termo, termo.length());
-            Document doc = Jsoup.connect(url).get();
+
+            Document doc = Jsoup.connect(url)
+                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                    .get();
+                    
             Element jobsListUl = doc.selectFirst("ul[aria-label=Jobs List]");
 
             if (jobsListUl != null) {

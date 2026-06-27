@@ -31,8 +31,6 @@ public class AcademiaUniversitarioService {
 
             inputBusca.fill(termo);
 
-            System.out.println(inputBusca.inputValue());
-
             page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Buscar minha vaga")).first().click();
             
             page.waitForSelector("div[data-testid='jobs-list-grid']", new Page.WaitForSelectorOptions().setTimeout(5000));
