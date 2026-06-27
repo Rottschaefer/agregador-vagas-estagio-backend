@@ -27,7 +27,7 @@ public class AgregadorService {
         List<VagaDTO> vagas = new ArrayList<>();
         vagas.addAll(glassdoorService.retornaVagas(termo, local));
         vagas.addAll(infojobsService.retornaVagas(termo, local));
-        // vagas.addAll(academiaUniversitarioService.retornaVagas(termo, local));
+        vagas.addAll(academiaUniversitarioService.retornaVagas(termo, local));
         vagas.addAll(gupyService.retornaVagas(termo, local));
         return vagas;
     }

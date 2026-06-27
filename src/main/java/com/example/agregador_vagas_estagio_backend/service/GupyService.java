@@ -60,8 +60,6 @@ public class GupyService {
                     VagaDTO vaga = new VagaDTO(titulo, empresa, localizacao, link, "Gupy");
                     listaDeVagas.add(vaga);
                     
-                    // Só para você ver no console se deu tudo certo:
-                    System.out.println("Vaga: " + titulo + " | Empresa: " + empresa + " | Local: " + localizacao);
                 }
             }
 
