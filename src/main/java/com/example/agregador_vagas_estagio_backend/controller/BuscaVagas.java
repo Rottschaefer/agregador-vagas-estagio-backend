@@ -26,10 +26,12 @@ public class BuscaVagas {
 
     @GetMapping()
     public List<VagaDTO> buscar(
+            @RequestParam(name = "fonte") String fonte,
             @RequestParam(name = "termo") String termo,
             @RequestParam(name = "local", required = false, defaultValue = "Brasil") String local) {
         
-        // Retornamos direto a lista que vem do seu service
-        return agregadorService.agregaVagas(termo, local);
+        return agregadorService.buscaPorFonte(fonte, termo, local);
     }
+
+
 }
