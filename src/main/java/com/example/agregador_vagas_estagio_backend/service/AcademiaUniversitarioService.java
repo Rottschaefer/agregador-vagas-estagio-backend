@@ -1,6 +1,7 @@
 package com.example.agregador_vagas_estagio_backend.service;
 
 import com.example.agregador_vagas_estagio_backend.dto.VagaDTO;
+import com.example.agregador_vagas_estagio_backend.interfaces.VagaScraper;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.LoadState;
@@ -14,9 +15,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class AcademiaUniversitarioService {
+@Service("academiauniversitarioService") //As fontes passam todas pra minúsculo, aí sem essa linha daria erro
+public class AcademiaUniversitarioService implements VagaScraper{
 
+    @Override
     public List<VagaDTO> retornaVagas(String termo, String local) {
         List<VagaDTO> listaDeVagas = new ArrayList<>();
 

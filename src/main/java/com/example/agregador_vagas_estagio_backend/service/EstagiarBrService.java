@@ -11,10 +11,12 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service; // Não esqueça do @Service aqui também!
 
 import com.example.agregador_vagas_estagio_backend.dto.VagaDTO;
+import com.example.agregador_vagas_estagio_backend.interfaces.VagaScraper;
 
-@Service // Permite que o Spring injete o EstagiarBrService lá no AgregadorService
-public class EstagiarBrService {
+@Service("estagiarbrService") //As fontes passam todas pra minúsculo, aí sem essa linha daria erro
+public class EstagiarBrService implements VagaScraper{
 
+    @Override
     public List<VagaDTO> retornaVagas(String termo, String local) {
         // 1. Cria a lista vazia que vai guardar os DTOs
         List<VagaDTO> listaDeVagas = new ArrayList<>();

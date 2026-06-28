@@ -1,8 +1,8 @@
 package com.example.agregador_vagas_estagio_backend.service;
 
 import com.example.agregador_vagas_estagio_backend.dto.VagaDTO;
+import com.example.agregador_vagas_estagio_backend.interfaces.VagaScraper;
 import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.AriaRole;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,8 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GupyService {
+public class GupyService implements VagaScraper{
 
+    @Override
     public List<VagaDTO> retornaVagas(String termo, String local) {
         List<VagaDTO> listaDeVagas = new ArrayList<>();
 
