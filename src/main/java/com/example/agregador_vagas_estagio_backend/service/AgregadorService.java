@@ -31,7 +31,7 @@ public class AgregadorService {
         // Monta o nome do Bean esperado (Ex: se vier "gupy", vira "gupyService")
         System.out.print(fonte);
 
-        // if (fonte == "") return buscaVagas(termo, local);
+        if (fonte == "") return buscaVagas(termo, local);
         
         String beanName = fonte.toLowerCase() + "Service";
         
