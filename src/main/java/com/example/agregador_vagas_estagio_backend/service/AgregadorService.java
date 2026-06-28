@@ -28,11 +28,9 @@ public class AgregadorService {
 
     //Busca apenas na fonte especificada na URL
     public List<VagaDTO> buscaPorFonte(String fonte, String termo, String local) {
-        // Monta o nome do Bean esperado (Ex: se vier "gupy", vira "gupyService")
-        System.out.print(fonte);
-
         if (fonte == "") return buscaVagas(termo, local);
-        
+
+        // Monta o nome do Bean esperado (Ex: se vier "gupy", vira "gupyService")
         String beanName = fonte.toLowerCase() + "Service";
         
         VagaScraper scraper = scrapers.get(beanName);
