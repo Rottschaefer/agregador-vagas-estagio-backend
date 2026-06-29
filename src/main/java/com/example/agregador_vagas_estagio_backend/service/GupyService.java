@@ -26,7 +26,7 @@ public class GupyService implements VagaScraper{
 
             String urlBase = "https://portal.gupy.io/job-search/term=%s";
 
-            String url = String.format(urlBase, termo, termo.length());
+            String url = String.format(urlBase, termo);
 
             page.navigate(url);
 
@@ -56,6 +56,12 @@ public class GupyService implements VagaScraper{
                
                 Element localElement = job.selectFirst("span[data-testid='job-location']");
                 String localizacao = (localElement != null) ? localElement.text() : "Não informada";
+                if (!local.isBlank()) {
+                    System.out.println(local);
+                    if (!localizacao.toLowerCase().contains(local.toLowerCase())) {
+                        continue;
+                    }
+                }
 
                 if (!titulo.equals("Título não encontrado") && !link.isEmpty()) {
                     VagaDTO vaga = new VagaDTO(titulo, empresa, localizacao, link, "Gupy");

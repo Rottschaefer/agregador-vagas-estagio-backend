@@ -22,7 +22,7 @@ public class InfojobsService implements VagaScraper{
         List<VagaDTO> listaDeVagas = new ArrayList<>();
 
         try {  
-            String urlBase = "https://www.infojobs.com.br/empregos.aspx?palabra=%s&poblacion=5208622";
+            String urlBase = "https://www.infojobs.com.br/empregos.aspx?palabra=%s";
 
             // O String.format substitui o primeiro %s por 'termo'
             String url = String.format(urlBase, termo);
@@ -54,7 +54,13 @@ public class InfojobsService implements VagaScraper{
                     
                     Element locationElement = job.selectFirst("div.mb-8");
                     String localizacao = (locationElement != null) ? locationElement.ownText() : "Não encontrado";
-                    
+                    if (!local.isBlank()) {
+                        System.out.println(local);
+                        if (!localizacao.toLowerCase().contains(local.toLowerCase())) {
+                            continue;
+                        }
+                    }
+
                     // 2. O MAPPER NA PRÁTICA: Cria o objeto DTO com as Strings que limpamos do HTML
                     // (Se o seu VagaDTO for um 'record', use: new VagaDTO(titulo, empresa, localizacao, linkVaga, "Infojobs"))
                     VagaDTO vaga = new VagaDTO(titulo, empresa, localizacao, linkVaga, "Infojobs");

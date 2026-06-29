@@ -57,7 +57,13 @@ public class EstagiarBrService implements VagaScraper{
                     // A localização é o primeiro h3 que aparece
                     Element locationElement = job.selectFirst("h3");
                     String localizacao = (locationElement != null) ? locationElement.text() : "Não encontrado";
-                    
+                    if (!local.isBlank()) {
+                        System.out.println(local);
+                        if (!localizacao.toLowerCase().contains(local.toLowerCase())) {
+                            continue;
+                        }
+                    }
+
                     // 2. O MAPPER NA PRÁTICA: Cria o objeto DTO com as Strings que limpamos do HTML
                     VagaDTO vaga = new VagaDTO(titulo, empresa, localizacao, linkVaga, "EstagiarBR");
                     

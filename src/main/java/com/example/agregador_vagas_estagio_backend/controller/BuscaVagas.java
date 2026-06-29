@@ -28,7 +28,7 @@ public class BuscaVagas {
     public List<VagaDTO> buscar(
             @RequestParam(name = "fonte") String fonte,
             @RequestParam(name = "termo") String termo,
-            @RequestParam(name = "local", required = false, defaultValue = "Brasil") String local) {
+            @RequestParam(name = "local", required = false) String local) {
         
         return agregadorService.buscaPorFonte(fonte, termo, local);
     }

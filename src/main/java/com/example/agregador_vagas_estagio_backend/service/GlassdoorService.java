@@ -47,7 +47,13 @@ public class GlassdoorService implements VagaScraper{
                     
                     Element locationElement = job.selectFirst("div[id^=job-location]");
                     String localizacao = (locationElement != null) ? locationElement.text() : "Não encontrado";
-                    
+                    if (!local.isBlank()) {
+                        System.out.println(local);
+                        if (!localizacao.toLowerCase().contains(local.toLowerCase())) {
+                            continue;
+                        }
+                    }
+
                     // 2. O MAPPER NA PRÁTICA: Cria o objeto DTO com as Strings que limpamos do HTML
                     // (Se o seu VagaDTO for um 'record', use: new VagaDTO(titulo, empresa, localizacao, linkVaga, "Glassdoor"))
                     VagaDTO vaga = new VagaDTO(titulo, empresa, localizacao, linkVaga, "Glassdoor");

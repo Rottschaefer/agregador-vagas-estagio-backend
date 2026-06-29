@@ -31,7 +31,7 @@ public class AgregadorService {
         // Monta o nome do Bean esperado (Ex: se vier "gupy", vira "gupyService")
         System.out.print(fonte);
 
-        // if (fonte == "") return buscaVagas(termo, local);
+        if (fonte == "") return buscaVagas(termo, local);
         
         String beanName = fonte.toLowerCase() + "Service";
         
@@ -58,7 +58,12 @@ public class AgregadorService {
                 throw new IllegalArgumentException("Fonte de vagas inválida: " + fonte);
             }
 
-            vagas.addAll(scraper.retornaVagas(termo, local));
+            try {
+                vagas.addAll(scraper.retornaVagas(termo, local));
+            } catch (Exception e) {
+                System.out.println("Erro em " + fonte);
+                e.printStackTrace();
+            }
 
         }
         
