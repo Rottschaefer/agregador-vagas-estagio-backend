@@ -17,16 +17,16 @@ import java.util.List;
 public class GupyService implements VagaScraper{
 
     @Override
-    public List<VagaDTO> retornaVagas(String termo, String local) {
+    public List<VagaDTO> retornaVagas(String termo, String local, int pagina) {
         List<VagaDTO> listaDeVagas = new ArrayList<>();
 
         try (Playwright playwright = Playwright.create()) {
             Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
             Page page = browser.newPage();
 
-            String urlBase = "https://portal.gupy.io/job-search/term=%s";
+            String urlBase = "https://portal.gupy.io/job-search/term=%s?page=%d";
 
-            String url = String.format(urlBase, termo);
+            String url = String.format(urlBase, termo, pagina);
 
             page.navigate(url);
 

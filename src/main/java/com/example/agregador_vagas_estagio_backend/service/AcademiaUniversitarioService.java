@@ -19,7 +19,7 @@ import java.util.List;
 public class AcademiaUniversitarioService implements VagaScraper{
 
     @Override
-    public List<VagaDTO> retornaVagas(String termo, String local) {
+    public List<VagaDTO> retornaVagas(String termo, String local, int pagina) {
         List<VagaDTO> listaDeVagas = new ArrayList<>();
 
         try (Playwright playwright = Playwright.create()) {

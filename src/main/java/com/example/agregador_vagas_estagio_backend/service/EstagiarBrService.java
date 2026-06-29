@@ -17,7 +17,7 @@ import com.example.agregador_vagas_estagio_backend.interfaces.VagaScraper;
 public class EstagiarBrService implements VagaScraper{
 
     @Override
-    public List<VagaDTO> retornaVagas(String termo, String local) {
+    public List<VagaDTO> retornaVagas(String termo, String local, int pagina) {
         // 1. Cria a lista vazia que vai guardar os DTOs
         List<VagaDTO> listaDeVagas = new ArrayList<>();
 
