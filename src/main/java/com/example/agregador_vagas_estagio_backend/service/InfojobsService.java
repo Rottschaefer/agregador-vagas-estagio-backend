@@ -55,7 +55,6 @@ public class InfojobsService implements VagaScraper{
                     Element locationElement = job.selectFirst("div.mb-8");
                     String localizacao = (locationElement != null) ? locationElement.ownText() : "Não encontrado";
                     if (!local.isBlank()) {
-                        System.out.println(local);
                         if (!localizacao.toLowerCase().contains(local.toLowerCase())) {
                             continue;
                         }

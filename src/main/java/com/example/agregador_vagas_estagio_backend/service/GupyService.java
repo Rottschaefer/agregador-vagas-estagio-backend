@@ -57,7 +57,6 @@ public class GupyService implements VagaScraper{
                 Element localElement = job.selectFirst("span[data-testid='job-location']");
                 String localizacao = (localElement != null) ? localElement.text() : "Não informada";
                 if (!local.isBlank()) {
-                    System.out.println(local);
                     if (!localizacao.toLowerCase().contains(local.toLowerCase())) {
                         continue;
                     }

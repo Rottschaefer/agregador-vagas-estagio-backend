@@ -58,7 +58,6 @@ public class EstagiarBrService implements VagaScraper{
                     Element locationElement = job.selectFirst("h3");
                     String localizacao = (locationElement != null) ? locationElement.text() : "Não encontrado";
                     if (!local.isBlank()) {
-                        System.out.println(local);
                         if (!localizacao.toLowerCase().contains(local.toLowerCase())) {
                             continue;
                         }
