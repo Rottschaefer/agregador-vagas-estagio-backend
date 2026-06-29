@@ -27,8 +27,8 @@ public class AgregadorService {
     private Map<String, VagaScraper> scrapers;
 
     //Busca apenas na fonte especificada na URL
-    public List<VagaDTO> buscaPorFonte(String fonte, String termo, String local) {
-        if (fonte == "") return buscaVagas(termo, local);
+    public List<VagaDTO> buscaPorFonte(String fonte, String termo, String local, int pagina) {
+        if (fonte == "") return buscaVagas(termo, local, pagina);
         
         String beanName = fonte.toLowerCase() + "Service";
         
@@ -38,10 +38,10 @@ public class AgregadorService {
             throw new IllegalArgumentException("Fonte de vagas inválida: " + fonte);
         }
         
-        return scraper.retornaVagas(termo, local);
+        return scraper.retornaVagas(termo, local, pagina);
     }
 
-    public List<VagaDTO> buscaVagas(String termo, String local) {
+    public List<VagaDTO> buscaVagas(String termo, String local, int pagina) {
         // Monta o nome do Bean esperado (Ex: se vier "gupy", vira "gupyService")
         
         List<VagaDTO> vagas = new ArrayList<>();
@@ -56,7 +56,7 @@ public class AgregadorService {
             }
 
             try {
-                vagas.addAll(scraper.retornaVagas(termo, local));
+                vagas.addAll(scraper.retornaVagas(termo, local, pagina));
             } catch (Exception e) {
                 System.out.println("Erro em " + fonte);
                 e.printStackTrace();
