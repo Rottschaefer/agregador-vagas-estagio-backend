@@ -1,10 +1,7 @@
 package com.example.agregador_vagas_estagio_backend.service;
 
-import com.example.agregador_vagas_estagio_backend.dto.VagaDTO;
-import com.example.agregador_vagas_estagio_backend.interfaces.VagaScraper;
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.AriaRole;
-import com.microsoft.playwright.options.LoadState;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,8 +9,15 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.agregador_vagas_estagio_backend.dto.VagaDTO;
+import com.example.agregador_vagas_estagio_backend.interfaces.VagaScraper;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.LoadState;
 
 @Service("academiauniversitarioService") //As fontes passam todas pra minúsculo, aí sem essa linha daria erro
 public class AcademiaUniversitarioService implements VagaScraper{
@@ -35,7 +39,7 @@ public class AcademiaUniversitarioService implements VagaScraper{
 
             page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Buscar minha vaga")).first().click();
             
-            page.waitForSelector("div[data-testid='jobs-list-grid']", new Page.WaitForSelectorOptions().setTimeout(5000));
+            page.waitForSelector("div[data-testid='jobs-list-grid']", new Page.WaitForSelectorOptions().setTimeout(7000));
 
             //Espera as requisições da página acabarem antes de procurar as tags
             page.waitForLoadState(LoadState.NETWORKIDLE);

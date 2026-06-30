@@ -63,6 +63,14 @@ public class EstagiarBrService implements VagaScraper{
                         }
                     }
 
+                    // FILTRO DE TERMO 
+                    if (termo != null && !termo.isBlank()) {
+                        // Verifica se a palavra buscada (ex: "java") tá no título da vaga
+                        if (!titulo.toLowerCase().contains(termo.toLowerCase())) {
+                            continue; // Pula se a vaga for de outra área, ou seja, se o título não tiver a palavra buscada
+                        }
+                    }
+
                     // 2. O MAPPER NA PRÁTICA: Cria o objeto DTO com as Strings que limpamos do HTML
                     VagaDTO vaga = new VagaDTO(titulo, empresa, localizacao, linkVaga, "EstagiarBR");
                     
