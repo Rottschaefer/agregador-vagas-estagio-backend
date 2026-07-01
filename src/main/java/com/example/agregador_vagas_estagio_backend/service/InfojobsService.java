@@ -22,7 +22,7 @@ public class InfojobsService implements VagaScraper{
         List<VagaDTO> listaDeVagas = new ArrayList<>();
 
         try {  
-            String urlBase = "https://www.infojobs.com.br/empregos.aspx?palabra=%s";
+            String urlBase = "https://www.infojobs.com.br/empregos.aspx?palabra=%s&provincia=182";
 
             // O String.format substitui o primeiro %s por 'termo'
             String url = String.format(urlBase, termo);
