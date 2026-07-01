@@ -8,7 +8,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.stereotype.Service; // Não esqueça do @Service aqui também!
+import org.springframework.stereotype.Service; 
 
 import com.example.agregador_vagas_estagio_backend.dto.VagaDTO;
 import com.example.agregador_vagas_estagio_backend.interfaces.VagaScraper;
@@ -18,13 +18,11 @@ public class GlassdoorService implements VagaScraper{
 
     @Override
     public List<VagaDTO> retornaVagas(String termo, String local, int pagina) {
-        // 1. Cria a lista vazia que vai guardar os DTOs
         List<VagaDTO> listaDeVagas = new ArrayList<>();
 
         try {  
             String urlBase = "https://www.glassdoor.com.br/Vaga/%s-vagas-SRCH_IL.0,6_IN36_KO0,%d.htm";
 
-            // O String.format substitui o primeiro %s por 'termo' e o %d pelo tamanho do termo
             String url = String.format(urlBase, termo, termo.length());
 
             Document doc = Jsoup.connect(url)
@@ -37,7 +35,6 @@ public class GlassdoorService implements VagaScraper{
                 Elements jobs = jobsListUl.select("li[data-test=jobListing]");
                 
                 for (Element job : jobs) {
-                    // --- PARSEANDO CADA INFO INDIVIDUAL ---
                     Element titleElement = job.selectFirst("a[data-test=job-title]");
                     String titulo = (titleElement != null) ? titleElement.text() : "Não encontrado";
                     String linkVaga = (titleElement != null) ? titleElement.attr("href") : "";
@@ -53,21 +50,16 @@ public class GlassdoorService implements VagaScraper{
                         }
                     }
 
-                    // 2. O MAPPER NA PRÁTICA: Cria o objeto DTO com as Strings que limpamos do HTML
-                    // (Se o seu VagaDTO for um 'record', use: new VagaDTO(titulo, empresa, localizacao, linkVaga, "Glassdoor"))
                     VagaDTO vaga = new VagaDTO(titulo, empresa, localizacao, linkVaga, "Glassdoor");
                     
-                    // 3. Adiciona o DTO mapeado na nossa lista
                     listaDeVagas.add(vaga);
                 }
             }
 
-            // 4. Retorna a lista cheia de DTOs
             return listaDeVagas;
 
         } catch (IOException e) {
             e.printStackTrace(); 
-            // 5. Se der erro, retorna a lista vazia (melhor do que estourar null no controller)
             return listaDeVagas; 
         }
     }

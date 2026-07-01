@@ -1,14 +1,14 @@
 package com.example.agregador_vagas_estagio_backend.service;
 
 import java.io.IOException;
-import java.util.ArrayList; // Import necessário para a lista
+import java.util.ArrayList; 
 import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.stereotype.Service; // Não esqueça do @Service aqui também!
+import org.springframework.stereotype.Service; 
 
 import com.example.agregador_vagas_estagio_backend.dto.VagaDTO;
 import com.example.agregador_vagas_estagio_backend.interfaces.VagaScraper;
@@ -18,13 +18,11 @@ public class InfojobsService implements VagaScraper{
 
     @Override
     public List<VagaDTO> retornaVagas(String termo, String local, int pagina) {
-        // 1. Cria a lista vazia que vai guardar os DTOs
         List<VagaDTO> listaDeVagas = new ArrayList<>();
 
         try {  
             String urlBase = "https://www.infojobs.com.br/empregos.aspx?palabra=%s&provincia=182";
 
-            // O String.format substitui o primeiro %s por 'termo'
             String url = String.format(urlBase, termo);
 
             Document doc = Jsoup.connect(url)
@@ -34,11 +32,9 @@ public class InfojobsService implements VagaScraper{
             Element jobsListUl = doc.selectFirst("div.js_vacanciesGridFragment.mb-16");
 
             if (jobsListUl != null) {
-                // O Jsoup vai procurar todas as <div> que contenham a classe "js_rowCard"
                 Elements jobs = jobsListUl.select("div.card.js_rowCard");
                 
                 for (Element job : jobs) {
-                    // --- PARSEANDO CADA INFO INDIVIDUAL ---
                     Element titleElement = job.selectFirst("h2.js_vacancyTitle");
                     String titulo = (titleElement != null) ? titleElement.text() : "Não encontrado";
 
@@ -64,21 +60,17 @@ public class InfojobsService implements VagaScraper{
                         }
                     }
 
-                    // 2. O MAPPER NA PRÁTICA: Cria o objeto DTO com as Strings que limpamos do HTML
-                    // (Se o seu VagaDTO for um 'record', use: new VagaDTO(titulo, empresa, localizacao, linkVaga, "Infojobs"))
+                   
                     VagaDTO vaga = new VagaDTO(titulo, empresa, localizacao, linkVaga, "Infojobs");
                     
-                    // 3. Adiciona o DTO mapeado na nossa lista
                     listaDeVagas.add(vaga);
                 }
             }
 
-            // 4. Retorna a lista cheia de DTOs
             return listaDeVagas;
 
         } catch (IOException e) {
             e.printStackTrace(); 
-            // 5. Se der erro, retorna a lista vazia (melhor do que estourar null no controller)
             return listaDeVagas; 
         }
     }
