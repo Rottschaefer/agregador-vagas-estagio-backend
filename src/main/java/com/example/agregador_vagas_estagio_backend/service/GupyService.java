@@ -24,7 +24,7 @@ public class GupyService implements VagaScraper{
             Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
             Page page = browser.newPage();
 
-            String urlBase = "https://portal.gupy.io/job-search/term=%s?page=%d";
+            String urlBase = "https://portal.gupy.io/job-search/term=%s&state=Rio de Janeiro?&page=%d";
 
             String url = String.format(urlBase, termo, pagina);
 
